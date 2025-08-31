@@ -1,0 +1,14 @@
+{
+  "TAILSCALE_API_KEY": "tskey-api-####################################",
+  "CHECK_MINUTES": 5,
+  "SLEEP_SECONDS": 600,
+
+  "SMTP_SERVER": "smtp.gmail.com",
+  "SMTP_PORT": 465,
+
+  "EMAIL_USER": "your.email@email.com",
+  "EMAIL_PASS": "###############",
+  "EMAIL_TO": "your.email@email.com",
+
+  "HOSTNAMES": ["laptop", "desktop", "server", "raspberrypi"]
+}
