@@ -88,6 +88,13 @@ def main():
 
             for hostname in HOSTNAMES_TO_CHECK:
                 dev = next((d for d in devices if d["hostname"].lower() == hostname.lower()), None)
+
+                if not dev:
+                    dev = next(
+                        (d for d in devices if d.get("name", "").split(".")[0].lower() == hostname.lower()),
+                        None
+                    )
+
                 if not dev:
                     log(f"Device {hostname} not found in tailnet")
                     continue
