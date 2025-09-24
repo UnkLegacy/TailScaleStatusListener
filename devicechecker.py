@@ -1,10 +1,11 @@
+import time
+
 from typing import List, Dict, Optional
 from datetime import datetime, timedelta, timezone
 
 from config import Config
 from logger import Logger
 from statemanager import StateManager
-
 
 class DeviceChecker:
     """Checks device status and determines online/offline state"""
@@ -53,11 +54,21 @@ class DeviceChecker:
                 self.logger.log(f"Device {hostname} not found in tailnet")
                 continue
 
-            is_online, last_seen = self.is_device_online(device)
+            is_online, last_seen = False, None
+
+            for attempt in range(self.config.retries):
+                is_online, last_seen = self.is_device_online(device)
+                if is_online:
+                    break
+                if attempt < self.config.retries - 1:
+                    time.sleep(2)  # wait 2 seconds before retry
+
             prev_status = state_manager.get_previous_status(hostname)
 
             if not is_online and prev_status != "offline":
-                self.logger.log(f"{hostname} went OFFLINE (last seen {last_seen})")
+                self.logger.log(
+                    f"{hostname} went OFFLINE after {self.config.retries} checks (last seen {last_seen})"
+                )
                 offline_now.append((hostname, last_seen))
                 state_manager.update_status(hostname, "offline")
 

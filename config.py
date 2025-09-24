@@ -7,6 +7,7 @@ class Config:
     tailscale_api_key: str
     check_minutes: int
     sleep_seconds: int
+    retries: int
     smtp_server: str
     smtp_port: int
     email_user: str
@@ -24,6 +25,7 @@ class Config:
             tailscale_api_key=data["TAILSCALE_API_KEY"],
             check_minutes=data["CHECK_MINUTES"],
             sleep_seconds=data["SLEEP_SECONDS"],
+            retries=data["RETRIES"],
             smtp_server=data["SMTP_SERVER"],
             smtp_port=data["SMTP_PORT"],
             email_user=data["EMAIL_USER"],
