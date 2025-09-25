@@ -4,7 +4,7 @@ from datetime import datetime
 class Logger:
     """Handles logging with rotation"""
 
-    def __init__(self, log_file: str = "monitor.log", max_size: int = 10 * 1024, max_files: int = 9):
+    def __init__(self, log_file: str = "monitor.log", max_size: int = 10 * 10 * 1024, max_files: int = 9):
         self.log_file = log_file
         self.max_size = max_size
         self.max_files = max_files
