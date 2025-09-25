@@ -61,6 +61,7 @@ class DeviceChecker:
                 if is_online:
                     break
                 if attempt < self.config.retries - 1:
+                    self.logger.log(f"Device {hostname} on {attempt + 1} attempt")
                     time.sleep(2)  # wait 2 seconds before retry
 
             prev_status = state_manager.get_previous_status(hostname)
